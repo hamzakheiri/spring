@@ -1,16 +1,14 @@
 package fr._42.spring.controllers;
 
 import fr._42.spring.models.Role;
-import fr._42.spring.services.UserService;
+import fr._42.spring.services.UsersService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -18,11 +16,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class UsersController {
     private static final Logger logger = LoggerFactory.getLogger(UsersController.class);
 
-    private final UserService userService;
+    private final UsersService usersService;
 
     @Autowired
-    public UsersController(UserService userService) {
-        this.userService = userService;
+    public UsersController(UsersService usersService) {
+        this.usersService = usersService;
     }
 
     @GetMapping("/signup")
@@ -48,7 +46,7 @@ public class UsersController {
             }
             //ToDo handle the avatar later
 
-            userService.createUser(firstName, lastName, password, email, phoneNumber, Role.USER, null);
+            usersService.createUser(firstName, lastName, password, email, phoneNumber, Role.USER, null);
             redirectAttributes.addFlashAttribute("success", "Account created successfully! Welcome " + firstName + "!");
             return "redirect:/signin";
 

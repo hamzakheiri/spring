@@ -1,7 +1,7 @@
 package fr._42.spring.security;
 
 import fr._42.spring.models.User;
-import fr._42.spring.services.UserService;
+import fr._42.spring.services.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,11 +15,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
-    private final UserService userService;
+    private final UsersService usersService;
 
     @Autowired
-    public CustomUserDetailsService(UserService userService) {
-        this.userService = userService;
+    public CustomUserDetailsService(UsersService usersService) {
+        this.usersService = usersService;
     }
 
     /**
@@ -33,7 +33,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         // In our system, username is actually the email
-        User user = userService.getUserByEmail(username)
+        User user = usersService.getUserByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + username));
         
         // Wrap our User entity in CustomUserDetails for Spring Security

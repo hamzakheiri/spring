@@ -2,7 +2,7 @@ package fr._42.spring.services;
 
 import fr._42.spring.models.User;
 import fr._42.spring.models.Role;
-import fr._42.spring.repositories.UserRepository;
+import fr._42.spring.repositories.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -13,14 +13,14 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class UserService {
+public class UsersService {
 
-    private final UserRepository userRepository;
+    private final UsersRepository usersRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
+    public UsersService(UsersRepository usersRepository, PasswordEncoder passwordEncoder) {
+        this.usersRepository = usersRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -33,7 +33,7 @@ public class UserService {
 
 
     public User authenticateUser(String email, String password) {
-        Optional<User> user = userRepository.findByEmail(email);
+        Optional<User> user = usersRepository.findByEmail(email);
         if (user.isPresent() && validatePassword(password, user.get().getPassword())) {
             return user.get();
         }
@@ -44,10 +44,10 @@ public class UserService {
      * Create a new user with optional avatar
      */
     public User createUser(String firstName, String lastName, String password, String email, String phoneNumber, Role role, String avatarUrl) {
-        if (userRepository.existsByEmail(email)) {
+        if (usersRepository.existsByEmail(email)) {
             throw new IllegalArgumentException("Email already exists");
         }
-        if (userRepository.existsByPhoneNumber(phoneNumber)) {
+        if (usersRepository.existsByPhoneNumber(phoneNumber)) {
             throw new IllegalArgumentException("Phone number already exists");
         }
 
@@ -60,22 +60,22 @@ public class UserService {
         user.setRole(role != null ? role : Role.USER);
         user.setAvatar(avatarUrl); // Set avatar URL (can be null)
 
-        return userRepository.save(user);
+        return usersRepository.save(user);
     }
 
     @Transactional(readOnly = true)
     public List<User> getAllUsers() {
-        return userRepository.findAll();
+        return usersRepository.findAll();
     }
 
     @Transactional(readOnly = true)
     public Optional<User> getUserById(Long id) {
-        return userRepository.findById(id);
+        return usersRepository.findById(id);
     }
 
     @Transactional(readOnly = true)
     public Optional<User> getUserByEmail(String email) {
-        return userRepository.findByEmail(email);
+        return usersRepository.findByEmail(email);
     }
 
     /**
@@ -83,23 +83,23 @@ public class UserService {
      */
     @Transactional(readOnly = true)
     public Optional<User> getUserByPhoneNumber(String phoneNumber) {
-        return userRepository.findByPhoneNumber(phoneNumber);
+        return usersRepository.findByPhoneNumber(phoneNumber);
     }
 
     /**
      * Update user
      */
     public User updateUser(Long id, String firstName, String lastName, String email, String phoneNumber, Role role) {
-        User user = userRepository.findById(id)
+        User user = usersRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
         // Check if email is taken by another user
-        if (!user.getEmail().equals(email) && userRepository.existsByEmail(email)) {
+        if (!user.getEmail().equals(email) && usersRepository.existsByEmail(email)) {
             throw new IllegalArgumentException("Email already exists");
         }
 
         // Check if phone number is taken by another user
-        if (!user.getPhoneNumber().equals(phoneNumber) && userRepository.existsByPhoneNumber(phoneNumber)) {
+        if (!user.getPhoneNumber().equals(phoneNumber) && usersRepository.existsByPhoneNumber(phoneNumber)) {
             throw new IllegalArgumentException("Phone number already exists");
         }
 
@@ -109,45 +109,45 @@ public class UserService {
         user.setPhoneNumber(phoneNumber);
         user.setRole(role);
 
-        return userRepository.save(user);
+        return usersRepository.save(user);
     }
 
     /**
      * Update user password
      */
     public void updatePassword(Long id, String newPassword) {
-        User user = userRepository.findById(id)
+        User user = usersRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
         user.setPassword(passwordEncoder.encode(newPassword));
-        userRepository.save(user);
+        usersRepository.save(user);
     }
 
     public void deleteUser(Long id) {
-        if (!userRepository.existsById(id)) {
+        if (!usersRepository.existsById(id)) {
             throw new IllegalArgumentException("User not found");
         }
-        userRepository.deleteById(id);
+        usersRepository.deleteById(id);
     }
 
     @Transactional(readOnly = true)
     public List<User> searchUsersByName(String name) {
-        return userRepository.findByFullNameContainingIgnoreCase(name);
+        return usersRepository.findByFullNameContainingIgnoreCase(name);
     }
 
     @Transactional(readOnly = true)
     public List<User> searchUsersByFirstName(String firstName) {
-        return userRepository.findByFirstNameContainingIgnoreCase(firstName);
+        return usersRepository.findByFirstNameContainingIgnoreCase(firstName);
     }
 
     @Transactional(readOnly = true)
     public List<User> searchUsersByLastName(String lastName) {
-        return userRepository.findByLastNameContainingIgnoreCase(lastName);
+        return usersRepository.findByLastNameContainingIgnoreCase(lastName);
     }
 
     @Transactional(readOnly = true)
     public List<User> getUsersByRole(Role role) {
-        return userRepository.findByRole(role);
+        return usersRepository.findByRole(role);
     }
 
     public boolean validatePassword(String rawPassword, String encodedPassword) {
@@ -156,16 +156,16 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public boolean isEmailAvailable(String email) {
-        return !userRepository.existsByEmail(email);
+        return !usersRepository.existsByEmail(email);
     }
 
     @Transactional(readOnly = true)
     public boolean isPhoneNumberAvailable(String phoneNumber) {
-        return !userRepository.existsByPhoneNumber(phoneNumber);
+        return !usersRepository.existsByPhoneNumber(phoneNumber);
     }
 
     @Transactional(readOnly = true)
     public long getUserCountByRole(Role role) {
-        return userRepository.countByRole(role);
+        return usersRepository.countByRole(role);
     }
 }
