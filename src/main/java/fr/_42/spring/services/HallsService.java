@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class HallsService {
@@ -24,7 +25,11 @@ public class HallsService {
         return hallsRepository.save(hall);
     }
 
-    public List<Hall> getAllHalls() {
+    public List<Hall> getHalls() {
         return hallsRepository.findAll();
+    }
+
+    public Hall getHallById(Long id) {
+        return hallsRepository.findById(id).orElse(null);
     }
 }
