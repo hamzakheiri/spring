@@ -24,9 +24,7 @@ public class UsersService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    /**
-     * Create a new user without avatar
-     */
+
     public User createUser(String firstName, String lastName, String password, String email, String phoneNumber, Role role) {
         return createUser(firstName, lastName, password, email, phoneNumber, role, null);
     }
@@ -40,9 +38,6 @@ public class UsersService {
         return null;
     }
 
-    /**
-     * Create a new user with optional avatar
-     */
     public User createUser(String firstName, String lastName, String password, String email, String phoneNumber, Role role, String avatarUrl) {
         if (usersRepository.existsByEmail(email)) {
             throw new IllegalArgumentException("Email already exists");
@@ -78,18 +73,12 @@ public class UsersService {
         return usersRepository.findByEmail(email);
     }
 
-    /**
-     * Get user by phone number
-     */
-    @Transactional(readOnly = true)
+   @Transactional(readOnly = true)
     public Optional<User> getUserByPhoneNumber(String phoneNumber) {
         return usersRepository.findByPhoneNumber(phoneNumber);
     }
 
-    /**
-     * Update user
-     */
-    public User updateUser(Long id, String firstName, String lastName, String email, String phoneNumber, Role role) {
+   public User updateUser(Long id, String firstName, String lastName, String email, String phoneNumber, Role role) {
         User user = usersRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
@@ -112,10 +101,7 @@ public class UsersService {
         return usersRepository.save(user);
     }
 
-    /**
-     * Update user password
-     */
-    public void updatePassword(Long id, String newPassword) {
+   public void updatePassword(Long id, String newPassword) {
         User user = usersRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
 

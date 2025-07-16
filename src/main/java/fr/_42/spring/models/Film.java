@@ -15,22 +15,23 @@ public class Film {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "title", nullable = false, unique = true)
+    @Column(nullable = false, unique = true)
     private String title;
 
-    @Column(name = "year", nullable = false)
+    @Column(nullable = false)
     private int year;
 
-    @Column(name = "age_restrictions", nullable = false)
+    @Column(nullable = false)
     private int ageRestrictions;
 
-    @Column(name = "description", nullable = false)
+    @Column(nullable = false)
     private String description;
 
-    @Column(name = "poster_url", nullable = true)
+    @Column(nullable = true)
     private String posterUrl = "";
 
-    public Film() {}
+    public Film() {
+    }
 
     public Film(Long id, String title, int year, int ageRestrictions, String description, String posterUrl) {
         this.id = id;
