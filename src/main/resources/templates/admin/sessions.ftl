@@ -51,6 +51,9 @@
     <div class="form-container">
         <h3>Create New Session</h3>
         <form action="" method="post">
+            <!-- CSRF Token for security -->
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+
             <div class="form-group">
                 <label for="filmId">Select Movie</label>
                 <select id="filmId" name="filmId" class="form-control" required>

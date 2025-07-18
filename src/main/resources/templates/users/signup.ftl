@@ -21,6 +21,9 @@
                 </div>
                 <div class="card-body">
                     <form method="post" action="/signup" id="signupForm" novalidate>
+                        <!-- CSRF Token for security -->
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+
                         <!-- Personal Information -->
                         <div class="mb-3">
                             <label for="firstName" class="form-label">

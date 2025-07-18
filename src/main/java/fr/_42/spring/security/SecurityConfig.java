@@ -14,11 +14,16 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                // For now, allow all requests since you only have signin/signup
-                // We'll add protection later when you have more pages
+                // Configure which pages require authentication
                 .authorizeHttpRequests(authz -> authz
-                        .requestMatchers("/profile").authenticated()
-                        .anyRequest().permitAll()  // Allow all pages for now
+                        // Public pages - accessible without authentication
+                        .requestMatchers("/signin", "/signup", "/login", "/images/**").permitAll()
+
+                        // Admin pages - require ADMIN role
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+
+                        // All other pages - require authentication (any authenticated user)
+                        .anyRequest().authenticated()
                 )
                 // Configure form-based login for when you're ready
                 .formLogin(form -> form
@@ -33,8 +38,12 @@ public class SecurityConfig {
                 .exceptionHandling(exception -> exception
                         .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
                 )
-                // Disable CSRF for now (we'll enable it later)
-                .csrf(AbstractHttpConfigurer::disable);
+                // Enable CSRF protection
+                .csrf(csrf -> csrf
+                        // CSRF is enabled by default for state-changing operations (POST, PUT, DELETE)
+                        // We can customize which endpoints to exclude if needed
+                        .ignoringRequestMatchers("/api/**") // Example: exclude REST API endpoints if you have any
+                );
 
         return http.build();
     }

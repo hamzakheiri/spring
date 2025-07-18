@@ -21,6 +21,9 @@
                 </div>
                 <div class="card-body">
                     <form method="post" action="/login" id="signinForm" novalidate>
+                        <!-- CSRF Token for security -->
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+
                         <!-- Email Address -->
                         <div class="mb-3">
                             <label for="email" class="form-label">
@@ -72,9 +75,15 @@
 
                         <!-- Handle Spring Security error parameter -->
                         <#if RequestParameters.error??>
-                            <div class="alert alert-danger text-center mb-3">
-                                <i class="fas fa-exclamation-triangle me-2"></i>Invalid email or password. Please try again.
-                            </div>
+                            <#if RequestParameters.error == "auth">
+                                <div class="alert alert-warning text-center mb-3">
+                                    <i class="fas fa-lock me-2"></i>Please sign in to access this page.
+                                </div>
+                            <#else>
+                                <div class="alert alert-danger text-center mb-3">
+                                    <i class="fas fa-exclamation-triangle me-2"></i>Invalid email or password. Please try again.
+                                </div>
+                            </#if>
                         </#if>
 
                         <!-- Handle Spring Security success parameter -->

@@ -65,6 +65,9 @@
     <div class="form-container">
         <h3>Create New Movie Hall</h3>
         <form action="" method="post">
+            <!-- CSRF Token for security -->
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+
             <div class="form-group">
                 <label for="serialNumber">Serial Number</label>
                 <input type="text" class="form-control" id="serialNumber" name="serialNumber"

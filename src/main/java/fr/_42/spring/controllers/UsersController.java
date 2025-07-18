@@ -5,6 +5,7 @@ import fr._42.spring.services.UsersService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,7 +25,12 @@ public class UsersController {
     }
 
     @GetMapping("/signup")
-    public String showSignUpForm() {
+    public String showSignUpForm(Authentication authentication) {
+        // If user is already authenticated, redirect to profile
+        if (authentication != null && authentication.isAuthenticated() &&
+            !authentication.getName().equals("anonymousUser")) {
+            return "redirect:/profile";
+        }
         return "users/signup";
     }
 
@@ -57,7 +63,12 @@ public class UsersController {
     }
 
     @GetMapping("/signin")
-    public String showSignInForm() {
+    public String showSignInForm(Authentication authentication) {
+        // If user is already authenticated, redirect to profile
+        if (authentication != null && authentication.isAuthenticated() &&
+            !authentication.getName().equals("anonymousUser")) {
+            return "redirect:/profile";
+        }
         return "users/signin";
     }
 

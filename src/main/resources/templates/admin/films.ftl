@@ -69,6 +69,9 @@
     <div class="form-container">
         <h3>Create New film</h3>
         <form action="" method="post" enctype="multipart/form-data">
+            <!-- CSRF Token for security -->
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+
             <div class="form-group">
                 <label for="title">Title</label>
                 <input type="text" class="form-control" id="title" name="title"
