@@ -87,9 +87,14 @@
                         </#if>
 
                         <!-- Handle Spring Security success parameter -->
-                        <#if RequestParameters.success??>
+                        <#if RequestParameters.success?? || success??>
                             <div class="alert alert-success text-center mb-3">
-                                <i class="fas fa-check-circle me-2"></i>Login successful! Welcome back.
+                                <i class="fas fa-check-circle me-2"></i>
+                                <#if success??>
+                                    ${success}
+                                <#else>
+                                    Login successful! Welcome back.
+                                </#if>
                             </div>
                         </#if>
 

@@ -64,26 +64,10 @@ public class UsersController {
 
     @GetMapping("/signin")
     public String showSignInForm(Authentication authentication) {
-        // If user is already authenticated, redirect to profile
         if (authentication != null && authentication.isAuthenticated() &&
             !authentication.getName().equals("anonymousUser")) {
             return "redirect:/profile";
         }
         return "users/signin";
     }
-
-    // POST /signin is now handled by Spring Security at /login
-    // The form in signin.ftl posts to /login, which Spring Security processes automatically
-
-
-//    @GetMapping("/profile")
-//    @ResponseBody
-//    public String showProfile(Authentication authentication) {
-//        if (authentication != null) {
-////            User user = (User) authentication.getPrincipal();
-////            model.addAttribute("user", user);
-//            return "success";
-//        }
-//        return "fail";
-//    }
 }

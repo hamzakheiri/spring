@@ -10,13 +10,20 @@ import java.util.List;
 @Service
 public class ChatMessagesService {
     ChatMessagesRepository chatMessagesRepository;
+    UsersService usersService;
 
     @Autowired
     public ChatMessagesService(ChatMessagesRepository chatMessagesRepository) {
         this.chatMessagesRepository = chatMessagesRepository;
+        this.usersService = usersService;
     }
 
     public ChatMessage addMessage(ChatMessage message) {
+        if (message.getSenderFirstName() == null) {
+            message.setSenderFirstName(usersService.getUserById(message.getSenderId())
+                    .orElseThrow(() -> new IllegalArgumentException("User not found"))
+                    .getFirstName());
+        }
         return chatMessagesRepository.save(message);
     }
 

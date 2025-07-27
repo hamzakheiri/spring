@@ -9,6 +9,7 @@ import java.io.IOException;
 public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException {
+        // For all secured resources, redirect to signin
         response.sendRedirect("/signin?error=auth");
     }
 }

@@ -1,7 +1,8 @@
 package fr._42.spring.controllers;
 
 import fr._42.spring.models.ChatMessage;
-import fr._42.spring.models.UserSession;
+import fr._42.spring.models.User;
+import fr._42.spring.security.CustomUserDetails;
 import fr._42.spring.services.ChatMessagesService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -10,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.security.core.Authentication;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -18,8 +20,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 @RequestMapping("/films/")
@@ -34,44 +34,57 @@ public class FilmChatController {
     }
 
     @GetMapping(value = {"{filmId}/chat", "{filmId}/chat/"})
-//    @ResponseBody
     public String showChatPage(
             @PathVariable("filmId") Long filmId,
             @CookieValue(value = "userId", defaultValue = "") String userIp,
             Model model,
             HttpServletRequest request,
-            HttpServletResponse response
+            HttpServletResponse response,
+            Authentication authentication
     ) {
-        logger.info("Accessing chat page for film ID: {}", filmId);
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return "redirect:/signin";
+        }
 
+        User user = ((CustomUserDetails) authentication.getPrincipal()).getUser();
+        logger.info("Accessing chat page for film ID: {}", filmId);
+        logger.info("The current user: {}", user);
         if (userIp.isEmpty()) {
             userIp = request.getRemoteAddr();
             response.addCookie(new Cookie("userId", userIp));
         }
 
-        // Add filmId to the model so it can be accessed in the template
         model.addAttribute("filmId", filmId);
+        model.addAttribute("currentUser", user);
+        model.addAttribute("currentUserId", user.getId());
+        model.addAttribute("currentUsername", user.getFirstName());
 
-        List<ChatMessage> messages = new ArrayList<>();
-        List<UserSession> userSessions = new ArrayList<>();
-//        return filmId + " " + userIp;
         return "users/filmChat";
     }
 
     @MessageMapping("/films/{filmId}/chat/send")
     @SendTo("/topic/films/{filmId}/chat/messages")
-    public ChatMessage handleChatMessage(@DestinationVariable("filmId") Long filmId, ChatMessage message) {
+    public ChatMessage handleChatMessage(
+            @DestinationVariable("filmId") Long filmId,
+            ChatMessage message,
+            Authentication authentication
+    ) {
         try {
-            logger.info("Chat message - Film ID: {}, Sender ID: {}, Content: '{}'",
-                    filmId, message.getSenderId(), message.getContent());
+            if (authentication == null || !authentication.isAuthenticated()) {
+                logger.warn("Unauthenticated user tried to send message");
+                return createErrorMessage("Authentication required", filmId);
+            }
+            User user = ((CustomUserDetails) authentication.getPrincipal()).getUser();
 
             message.setFilmId(filmId);
+            message.setSenderId(user.getId());
+            message.setSenderFirstName(user.getFirstName()); // Add this line to set the sender's first name
 
-            if (message.getTimestamp() == null) {
+            if (message.getTimestamp() == null)
                 message.setTimestamp(LocalDateTime.now());
-            }
-            ChatMessage chatMessage = chatMessagesService.addMessage(message);
+            message = chatMessagesService.addMessage(message);
             return message;
+
         } catch (IllegalArgumentException e) {
             logger.error("Invalid message data: {}", e.getMessage());
             return createErrorMessage("Invalid message data", filmId);

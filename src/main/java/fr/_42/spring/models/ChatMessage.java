@@ -26,6 +26,9 @@ public final class ChatMessage {
     @Column(name = "content", length = 1000)
     private String content;
 
+    @Column(name = "sender_first_name")
+    private String senderFirstName;
+
     @Column(name = "user_ip")
     private String userIp;
 
@@ -37,26 +40,26 @@ public final class ChatMessage {
         this.timestamp = LocalDateTime.now();
     }
 
-    public ChatMessage(Long filmId, Long senderId, String content, String userIp) {
+    public ChatMessage(Long id, Long filmId, Long senderId, String content, String senderFirstName, String userIp, LocalDateTime timestamp) {
+        this.id = id;
         this.filmId = filmId;
         this.senderId = senderId;
         this.content = content;
+        this.senderFirstName = senderFirstName;
         this.userIp = userIp;
         this.timestamp = LocalDateTime.now();
     }
-
-
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         ChatMessage that = (ChatMessage) o;
-        return Objects.equals(id, that.id);
+        return Objects.equals(id, that.id) && Objects.equals(filmId, that.filmId) && Objects.equals(senderId, that.senderId) && Objects.equals(content, that.content) && Objects.equals(senderFirstName, that.senderFirstName) && Objects.equals(userIp, that.userIp) && Objects.equals(timestamp, that.timestamp);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(id, filmId, senderId, content, senderFirstName, userIp, timestamp);
     }
 
     @Override
@@ -64,8 +67,9 @@ public final class ChatMessage {
         return "ChatMessage{" +
                 "id=" + id +
                 ", filmId=" + filmId +
-                ", senderId='" + senderId + '\'' +
+                ", senderId=" + senderId +
                 ", content='" + content + '\'' +
+                ", senderFirstName='" + senderFirstName + '\'' +
                 ", userIp='" + userIp + '\'' +
                 ", timestamp=" + timestamp +
                 '}';

@@ -96,11 +96,10 @@
 <div class="chat-container">
     <div class="chat-header">
         <h3>Film ID: <span id="film-id">${filmId}</span></h3>
+        <p>Logged in as: <strong>${currentUsername}</strong> (ID: ${currentUserId})</p>
     </div>
     <div id="chat-messages" class="chat-messages"></div>
     <div class="chat-input">
-        <input type="text" id="sender" placeholder="Your name" />
-        <input type="number" id="sender-id" placeholder="Your ID" />
         <input type="text" id="message" placeholder="Type a message..." />
         <button id="send-btn" onclick="sendMessage()" disabled>Send</button>
     </div>
@@ -109,14 +108,17 @@
 <#assign ctx = springMacroRequestContext.contextPath>
 <div style="display: none;">
     <span id="context-path">${ctx}</span>
+    <span id="current-user-id">${currentUserId}</span>
+    <span id="current-username">${currentUsername}</span>
 </div>
 
 <#noparse>
     <script>
         let stompClient = null;
-        let username = '';
 
-        // Get filmId from the page
+        // Get user info from the server
+        const currentUserId = parseInt(document.getElementById('current-user-id').textContent);
+        const currentUsername = document.getElementById('current-username').textContent;
         const filmId = document.getElementById('film-id').textContent;
 
         function addMessage(sender, content, type = 'other') {
@@ -175,21 +177,20 @@
                             try {
                                 const parsedMessage = JSON.parse(message.body);
 
+                                // debug
+                                console.log(parsedMessage);
+
                                 // Check if this is a system error message (has special senderId)
                                 if (parsedMessage.senderId === -999) {
                                     addMessage("System", parsedMessage.content, "system");
                                     return;
                                 }
 
-                                // Determine message type
-                                // Compare with the current user's ID if available
-                                const senderIdInput = document.getElementById('sender-id');
-                                const currentUserId = senderIdInput ? parseInt(senderIdInput.value) : null;
-
+                                // Determine message type based on sender ID
                                 const messageType = parsedMessage.senderId === currentUserId ? 'user' : 'other';
 
-                                // Use senderId as display name if no other property available
-                                const displayName = parsedMessage.senderId ? `User ${parsedMessage.senderId}` : "Unknown";
+                                // Use the senderFirstName from the message or fallback to senderId
+                                const displayName = parsedMessage.senderFirstName || `User ${parsedMessage.senderId}`;
 
                                 addMessage(displayName, parsedMessage.content, messageType);
                             } catch (e) {
@@ -238,22 +239,16 @@
                     return;
                 }
 
-                // Get the sender name and message content
-                const senderInput = document.getElementById('sender');
-                const senderIdInput = document.getElementById('sender-id');
+                // Get the message content
                 const messageInput = document.getElementById('message');
-
-                username = senderInput.value.trim() || 'Anonymous';
-                const senderId = senderIdInput.value.trim();
                 const content = messageInput.value.trim();
 
                 if (!content) {
                     return; // Don't send empty messages
                 }
 
-                // Create a message that matches the ChatMessage class structure
+                // Create a message object with only content (server will add user info)
                 const chatMessage = {
-                    senderId: parseInt(senderId) || 0,
                     content: content
                 };
 

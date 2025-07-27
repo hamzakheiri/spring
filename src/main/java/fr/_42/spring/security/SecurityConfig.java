@@ -3,12 +3,13 @@ package fr._42.spring.security;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
+@EnableWebSecurity
 public class SecurityConfig {
 
     @Bean
@@ -17,13 +18,19 @@ public class SecurityConfig {
                 // Configure which pages require authentication
                 .authorizeHttpRequests(authz -> authz
                         // Public pages - accessible without authentication
-                        .requestMatchers("/signin", "/signup", "/login", "/images/**").permitAll()
+                        .requestMatchers("/signin", "/signup", "/login", "/images/**", "/css/**", "/js/**").permitAll()
 
                         // Admin pages - require ADMIN role
                         .requestMatchers("/admin/**").hasRole("ADMIN")
 
                         // All other pages - require authentication (any authenticated user)
                         .anyRequest().authenticated()
+                )
+                // Configure session management
+                .sessionManagement(session -> session
+                        .sessionCreationPolicy(org.springframework.security.config.http.SessionCreationPolicy.IF_REQUIRED)
+                        .maximumSessions(1)
+                        .maxSessionsPreventsLogin(false)
                 )
                 // Configure form-based login for when you're ready
                 .formLogin(form -> form
