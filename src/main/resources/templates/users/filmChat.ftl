@@ -176,11 +176,6 @@
 
                             try {
                                 const parsedMessage = JSON.parse(message.body);
-
-                                // debug
-                                console.log(parsedMessage);
-
-                                // Check if this is a system error message (has special senderId)
                                 if (parsedMessage.senderId === -999) {
                                     addMessage("System", parsedMessage.content, "system");
                                     return;
@@ -199,7 +194,6 @@
                             }
                         });
 
-                        // Add a system message to show connection
                         addMessage('System', 'Connected to chat. You can now send messages.', 'system');
                     },
                     (error) => {
