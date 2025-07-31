@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="7810cfdf-c498-4726-95ea-f4315b255043" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/ex00/src/main/java/fr/_42/spring/models/PersistentLogin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitattributes" beforeDir="false" afterPath="$PROJECT_DIR$/ex00/.gitattributes" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/ex00/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/ex00/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ex00/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/_42/spring/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/ex00/src/main/java/fr/_42/spring/Application.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/_42/spring/config/WebSocketConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/ex00/src/main/java/fr/_42/spring/config/WebSocketConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/_42/spring/controllers/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ex00/src/main/java/fr/_42/spring/controllers/AdminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/_42/spring/controllers/FilmChatController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ex00/src/main/java/fr/_42/spring/controllers/FilmChatController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/_42/spring/controllers/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ex00/src/main/java/fr/_42/spring/controllers/HelloController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/_42/spring/controllers/ImageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ex00/src/main/java/fr/_42/spring/controllers/ImageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/_42/spring/controllers/LiveSessionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ex00/src/main/java/fr/_42/spring/controllers/LiveSessionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/_42/spring/controllers/ProfileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ex00/src/main/java/fr/_42/spring/controllers/ProfileController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/_42/spring/controllers/UsersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ex00/src/main/java/fr/_42/spring/controllers/UsersController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/_42/spring/models/ChatMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/ex00/src/main/java/fr/_42/spring/models/ChatMessage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/_42/spring/models/Film.java" beforeDir="false" afterPath="$PROJECT_DIR$/ex00/src/main/java/fr/_42/spring/models/Film.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/_42/spring/models/Hall.java" beforeDir="false" afterPath="$PROJECT_DIR$/ex00/src/main/java/fr/_42/spring/models/Hall.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/_42/spring/models/Image.java" beforeDir="false" afterPath="$PROJECT_DIR$/ex00/src/main/java/fr/_42/spring/models/Image.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/_42/spring/models/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/ex00/src/main/java/fr/_42/spring/models/Role.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/_42/spring/models/Session.java" beforeDir="false" afterPath="$PROJECT_DIR$/ex00/src/main/java/fr/_42/spring/models/Session.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/_42/spring/models/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/ex00/src/main/java/fr/_42/spring/models/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/_42/spring/models/UserSession.java" beforeDir="false" afterPath="$PROJECT_DIR$/ex00/src/main/java/fr/_42/spring/models/UserSession.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/_42/spring/repositories/ChatMessagesRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/ex00/src/main/java/fr/_42/spring/repositories/ChatMessagesRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/_42/spring/repositories/FilmsRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/ex00/src/main/java/fr/_42/spring/repositories/FilmsRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/_42/spring/repositories/HallsRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/ex00/src/main/java/fr/_42/spring/repositories/HallsRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/_42/spring/repositories/ImagesRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/ex00/src/main/java/fr/_42/spring/repositories/ImagesRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/_42/spring/repositories/SessionsRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/ex00/src/main/java/fr/_42/spring/repositories/SessionsRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/_42/spring/repositories/UsersRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/ex00/src/main/java/fr/_42/spring/repositories/UsersRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/_42/spring/repositories/UsersSessionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/ex00/src/main/java/fr/_42/spring/repositories/UsersSessionRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/_42/spring/security/CustomAuthenticationEntryPoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/ex00/src/main/java/fr/_42/spring/security/CustomAuthenticationEntryPoint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/_42/spring/security/CustomUserDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/ex00/src/main/java/fr/_42/spring/security/CustomUserDetails.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/_42/spring/security/CustomUserDetailsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/ex00/src/main/java/fr/_42/spring/security/CustomUserDetailsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/_42/spring/security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/ex00/src/main/java/fr/_42/spring/security/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/_42/spring/services/ChatMessagesService.java" beforeDir="false" afterPath="$PROJECT_DIR$/ex00/src/main/java/fr/_42/spring/services/ChatMessagesService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/_42/spring/services/FilmsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/ex00/src/main/java/fr/_42/spring/services/FilmsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/_42/spring/services/HallsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/ex00/src/main/java/fr/_42/spring/services/HallsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/_42/spring/services/ImagesService.java" beforeDir="false" afterPath="$PROJECT_DIR$/ex00/src/main/java/fr/_42/spring/services/ImagesService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/_42/spring/services/SessionsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/ex00/src/main/java/fr/_42/spring/services/SessionsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/_42/spring/services/UsersService.java" beforeDir="false" afterPath="$PROJECT_DIR$/ex00/src/main/java/fr/_42/spring/services/UsersService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/ex00/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/sql/add_sender_username_column.sql" beforeDir="false" afterPath="$PROJECT_DIR$/ex00/src/main/resources/sql/add_sender_username_column.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/sql/data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/ex00/src/main/resources/sql/data.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/films.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/ex00/src/main/resources/templates/admin/films.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/halls.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/ex00/src/main/resources/templates/admin/halls.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/sessions.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/ex00/src/main/resources/templates/admin/sessions.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout/base.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/ex00/src/main/resources/templates/layout/base.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/users/filmChat.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/ex00/src/main/resources/templates/users/filmChat.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/users/liveSessionSearch.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/ex00/src/main/resources/templates/users/liveSessionSearch.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/users/profile.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/ex00/src/main/resources/templates/users/profile.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/users/sessionDetails.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/ex00/src/main/resources/templates/users/sessionDetails.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/users/signin.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/ex00/src/main/resources/templates/users/signin.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/users/signup.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/ex00/src/main/resources/templates/users/signup.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/fr/_42/spring/ApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/ex00/src/test/java/fr/_42/spring/ApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/fr/_42/spring/controllers/HelloControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/ex00/src/test/java/fr/_42/spring/controllers/HelloControllerTest.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 3
+}]]></component>
+  <component name="ProjectId" id="30YJv8j7iBaFQLxqgVxC9asvDmG" />
+  <component name="ProjectViewState">
+    <option name="flattenModules" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "Spring Boot.Application.executor": "Run",
+    "git-widget-placeholder": "master",
+    "junie.onboarding.icon.badge.shown": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/ex00" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="spring" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="fr._42.spring.Application" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7810cfdf-c498-4726-95ea-f4315b255043" name="Changes" comment="" />
+      <created>1753798804458</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1753798804458</updated>
+      <workItem from="1753798804460" duration="7446000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
