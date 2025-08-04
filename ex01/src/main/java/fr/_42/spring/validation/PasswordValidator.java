@@ -7,7 +7,6 @@ public class PasswordValidator implements ConstraintValidator<ValidPassword, Str
 
     @Override
     public void initialize(ValidPassword constraintAnnotation) {
-        // No initialization needed for this validator
     }
 
     @Override
@@ -16,7 +15,6 @@ public class PasswordValidator implements ConstraintValidator<ValidPassword, Str
             return false;
         }
 
-        // Check if password meets all requirements
         boolean hasLength = password.length() >= 8;
         boolean hasUppercase = password.matches(".*[A-Z].*");
         boolean hasLowercase = password.matches(".*[a-z].*");
