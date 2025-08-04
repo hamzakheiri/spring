@@ -18,3 +18,5 @@ VALUES (13, 'Thriller about dreams', 'Inception', 2010),
        (0, 'Family adventure', 'The Incredibles', 2004),
        (0, 'Animated classic', 'Toy Story', 1995),
        (13, 'Superhero action', 'The Avengers', 2012);
+
+delete from users where users.id != 0;

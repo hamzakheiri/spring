@@ -1,6 +1,8 @@
 package fr._42.spring.models;
 
+import fr._42.spring.validation.ValidPassword;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,21 +17,29 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "{user.firstName.required}")
     @Column(name = "first_name", nullable = false)
     private String firstName;
 
+    @NotBlank(message = "{user.lastName.required}")
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
+    @NotBlank(message = "{user.password.required}")
+    @ValidPassword(message = "{user.password.pattern}")
     @Column(name = "password", nullable = false)
     private String password;
 
     @Column(name = "avatar")
     private String avatar;
 
+    @NotBlank(message = "{user.email.required}")
+    @Email(message = "{user.email.pattern}")
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
+    @NotBlank(message = "{user.phoneNumber.required}")
+    @Pattern(regexp = "\\+\\d+\\(\\d+\\)\\d+", message = "{user.phoneNumber.pattern}")
     @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
 

@@ -18,7 +18,9 @@
     <!-- Page Header -->
     <div class="text-center mb-4">
         <h2><i class="fas fa-user-plus me-2"></i>${springMacroRequestContext.getMessage('signup.title', [])}</h2>
-        <p class="text-muted">${springMacroRequestContext.getMessage('signup.success', [])}</p>
+        <#if success??>
+            <p class="text-success">${springMacroRequestContext.getMessage('signup.success', [])}</p>
+        </#if>
     </div>
 
     <!-- Signup Form -->
@@ -41,15 +43,25 @@
                                 <i class="fas fa-user me-1"></i>${springMacroRequestContext.getMessage('signup.firstName', [])} <span class="text-danger">*</span>
                             </label>
                             <input type="text"
-                                   class="form-control"
+                                   class="form-control <#if (bindingResult?? && bindingResult.hasFieldErrors('firstName'))>is-invalid</#if>"
                                    id="firstName"
                                    name="firstName"
+                                   value="<#if user??>${user.firstName!''}</#if>"
                                    required
                                    minlength="2"
                                    maxlength="50"
                                    placeholder="${springMacroRequestContext.getMessage('signup.firstName.placeholder', [])}">
-                            <div class="invalid-feedback">
-                                ${springMacroRequestContext.getMessage('signup.firstName.error', [])}
+                            <#if bindingResult?? && bindingResult.hasFieldErrors('firstName')>
+                                <div class="invalid-feedback">
+                                    ${bindingResult.getFieldError('firstName').getDefaultMessage()!''}
+                                </div>
+                            <#else>
+                                <div class="invalid-feedback">
+                                    ${springMacroRequestContext.getMessage('signup.firstName.error', [])}
+                                </div>
+                            </#if>
+                            <div class="form-text">
+                                <i class="fas fa-info-circle me-1"></i>First name cannot be empty
                             </div>
                         </div>
 
@@ -58,15 +70,25 @@
                                 <i class="fas fa-user me-1"></i>${springMacroRequestContext.getMessage('signup.lastName', [])} <span class="text-danger">*</span>
                             </label>
                             <input type="text"
-                                   class="form-control"
+                                   class="form-control <#if (bindingResult?? && bindingResult.hasFieldErrors('lastName'))>is-invalid</#if>"
                                    id="lastName"
                                    name="lastName"
+                                   value="<#if user??>${user.lastName!''}</#if>"
                                    required
                                    minlength="2"
                                    maxlength="50"
                                    placeholder="${springMacroRequestContext.getMessage('signup.lastName.placeholder', [])}">
-                            <div class="invalid-feedback">
-                                ${springMacroRequestContext.getMessage('signup.lastName.error', [])}
+                            <#if bindingResult?? && bindingResult.hasFieldErrors('lastName')>
+                                <div class="invalid-feedback">
+                                    ${bindingResult.getFieldError('lastName').getDefaultMessage()!''}
+                                </div>
+                            <#else>
+                                <div class="invalid-feedback">
+                                    ${springMacroRequestContext.getMessage('signup.lastName.error', [])}
+                                </div>
+                            </#if>
+                            <div class="form-text">
+                                <i class="fas fa-info-circle me-1"></i>Last name cannot be empty
                             </div>
                         </div>
 
@@ -76,13 +98,23 @@
                                 <i class="fas fa-envelope me-1"></i>${springMacroRequestContext.getMessage('signup.email', [])} <span class="text-danger">*</span>
                             </label>
                             <input type="email"
-                                   class="form-control"
+                                   class="form-control <#if (bindingResult?? && bindingResult.hasFieldErrors('email'))>is-invalid</#if>"
                                    id="email"
                                    name="email"
+                                   value="<#if user??>${user.email!''}</#if>"
                                    required
                                    placeholder="${springMacroRequestContext.getMessage('signup.email.placeholder', [])}">
-                            <div class="invalid-feedback">
-                                ${springMacroRequestContext.getMessage('signup.email.error', [])}
+                            <#if bindingResult?? && bindingResult.hasFieldErrors('email')>
+                                <div class="invalid-feedback">
+                                    ${bindingResult.getFieldError('email').getDefaultMessage()!''}
+                                </div>
+                            <#else>
+                                <div class="invalid-feedback">
+                                    ${springMacroRequestContext.getMessage('signup.email.error', [])}
+                                </div>
+                            </#if>
+                            <div class="form-text">
+                                <i class="fas fa-info-circle me-1"></i>Email must be a valid email address format
                             </div>
                         </div>
 
@@ -91,13 +123,23 @@
                                 <i class="fas fa-phone me-1"></i>${springMacroRequestContext.getMessage('signup.phoneNumber', [])} <span class="text-danger">*</span>
                             </label>
                             <input type="tel"
-                                   class="form-control"
+                                   class="form-control <#if (bindingResult?? && bindingResult.hasFieldErrors('phoneNumber'))>is-invalid</#if>"
                                    id="phoneNumber"
                                    name="phoneNumber"
+                                   value="<#if user??>${user.phoneNumber!''}</#if>"
                                    required
                                    placeholder="${springMacroRequestContext.getMessage('signup.phoneNumber.placeholder', [])}">
-                            <div class="invalid-feedback">
-                                ${springMacroRequestContext.getMessage('signup.phoneNumber.error', [])}
+                            <#if bindingResult?? && bindingResult.hasFieldErrors('phoneNumber')>
+                                <div class="invalid-feedback">
+                                    ${bindingResult.getFieldError('phoneNumber').getDefaultMessage()!''}
+                                </div>
+                            <#else>
+                                <div class="invalid-feedback">
+                                    ${springMacroRequestContext.getMessage('signup.phoneNumber.error', [])}
+                                </div>
+                            </#if>
+                            <div class="form-text">
+                                <i class="fas fa-info-circle me-1"></i>Phone number must match format: +7(777)777777
                             </div>
                         </div>
 
@@ -107,17 +149,29 @@
                                 <i class="fas fa-lock me-1"></i>${springMacroRequestContext.getMessage('signup.password', [])} <span class="text-danger">*</span>
                             </label>
                             <input type="password"
-                                   class="form-control"
+                                   class="form-control <#if (bindingResult?? && bindingResult.hasFieldErrors('password'))>is-invalid</#if>"
                                    id="password"
                                    name="password"
                                    required
-                                   minlength="6"
+                                   minlength="8"
                                    placeholder="${springMacroRequestContext.getMessage('signup.password.placeholder', [])}">
-                            <div class="invalid-feedback">
-                                ${springMacroRequestContext.getMessage('signup.password.error', [])}
-                            </div>
+                            <#if bindingResult?? && bindingResult.hasFieldErrors('password')>
+                                <div class="invalid-feedback">
+                                    ${bindingResult.getFieldError('password').getDefaultMessage()!''}
+                                </div>
+                            <#else>
+                                <div class="invalid-feedback">
+                                    ${springMacroRequestContext.getMessage('signup.password.error', [])}
+                                </div>
+                            </#if>
                             <div class="form-text">
-                                <i class="fas fa-info-circle me-1"></i>${springMacroRequestContext.getMessage('signup.password.info', [])}
+                                <i class="fas fa-info-circle me-1"></i>Password must:
+                                <ul class="mb-0">
+                                    <li>Be at least 8 characters long</li>
+                                    <li>Contain at least one uppercase letter (A-Z)</li>
+                                    <li>Contain at least one lowercase letter (a-z)</li>
+                                    <li>Contain at least one digit (0-9)</li>
+                                </ul>
                             </div>
                         </div>
 
@@ -126,14 +180,23 @@
                                 <i class="fas fa-lock me-1"></i>${springMacroRequestContext.getMessage('signup.confirmPassword', [])} <span class="text-danger">*</span>
                             </label>
                             <input type="password"
-                                   class="form-control"
+                                   class="form-control <#if passwordMatchError??>is-invalid</#if>"
                                    id="confirmPassword"
                                    name="confirmPassword"
                                    required
-                                   minlength="6"
+                                   minlength="8"
                                    placeholder="${springMacroRequestContext.getMessage('signup.confirmPassword.placeholder', [])}">
-                            <div class="invalid-feedback">
-                                ${springMacroRequestContext.getMessage('signup.confirmPassword.error', [])}
+                            <#if passwordMatchError??>
+                                <div class="invalid-feedback">
+                                    ${passwordMatchError}
+                                </div>
+                            <#else>
+                                <div class="invalid-feedback">
+                                    ${springMacroRequestContext.getMessage('signup.confirmPassword.error', [])}
+                                </div>
+                            </#if>
+                            <div class="form-text">
+                                <i class="fas fa-info-circle me-1"></i>Must match the password field exactly
                             </div>
                         </div>
 
@@ -173,6 +236,18 @@
                         <#if error??>
                             <div class="alert alert-danger text-center mb-3">
                                 ${error}
+                            </div>
+                        </#if>
+
+                        <#if bindingResult?? && bindingResult.hasErrors()>
+                            <div class="alert alert-danger mb-3">
+                                <h5 class="alert-heading text-center">${springMacroRequestContext.getMessage('signup.error', [])}</h5>
+                                <hr>
+                                <ul class="mb-0">
+                                    <#list bindingResult.fieldErrors as error>
+                                        <li><strong>${error.field}:</strong> ${error.defaultMessage!''}</li>
+                                    </#list>
+                                </ul>
                             </div>
                         </#if>
 
