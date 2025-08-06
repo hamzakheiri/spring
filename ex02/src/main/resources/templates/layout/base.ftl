@@ -156,22 +156,22 @@
     </main>
 
     <!-- Footer -->
-    <footer class="footer mt-auto">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <p class="text-muted mb-0">
-                        <i class="fas fa-copyright me-1"></i>2024 MyApp
-                    </p>
-                </div>
-                <div class="col-md-6 text-end">
-                    <p class="text-muted mb-0">
-                        Built with <i class="fas fa-heart text-danger"></i> using Spring Boot & FreeMarker
-                    </p>
-                </div>
-            </div>
-        </div>
-    </footer>
+<#--    <footer class="footer mt-auto">-->
+<#--        <div class="container">-->
+<#--            <div class="row">-->
+<#--                <div class="col-md-6">-->
+<#--                    <p class="text-muted mb-0">-->
+<#--                        <i class="fas fa-copyright me-1"></i>2024 MyApp-->
+<#--                    </p>-->
+<#--                </div>-->
+<#--                <div class="col-md-6 text-end">-->
+<#--                    <p class="text-muted mb-0">-->
+<#--                        Built with <i class="fas fa-heart text-danger"></i> using Spring Boot & FreeMarker-->
+<#--                    </p>-->
+<#--                </div>-->
+<#--            </div>-->
+<#--        </div>-->
+<#--    </footer>-->
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

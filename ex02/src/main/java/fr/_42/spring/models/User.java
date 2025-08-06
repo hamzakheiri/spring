@@ -43,8 +43,10 @@ public class User {
     @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
 
-    @Column(name = "confirmation", columnDefinition = "boolean default true")
-    private boolean confirmation;
+    @Enumerated(EnumType.STRING)
+    // add the default value not confirmed
+    @Column(name = "confirmation", columnDefinition = "varchar(255) default 'NOT_CONFIRMED'")
+    private Confirmation confirmation;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)

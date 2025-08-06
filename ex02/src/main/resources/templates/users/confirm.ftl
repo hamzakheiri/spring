@@ -106,7 +106,7 @@
                 const email = document.getElementById('email').value;
                 const password = document.getElementById('password').value;
 
-                // Create form data for the request
+                // Create request data
                 const formData = new FormData();
                 formData.append('email', email);
                 formData.append('password', password);
@@ -143,6 +143,7 @@
                     }, 2000);
                 })
                 .catch(error => {
+                    console.error('Error during confirmation:', error);
                     // Show error message
                     const errorAlert = document.createElement('div');
                     errorAlert.className = 'alert alert-danger text-center mb-3';

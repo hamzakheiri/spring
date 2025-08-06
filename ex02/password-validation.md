@@ -1,44 +1,39 @@
 # Password Validation Guide
 
+## Overview
+This document explains how `ValidPassword` annotation works in our application and the password validation process in general.
+
 ## ValidPassword Annotation
+The `ValidPassword` annotation is a custom validation annotation that ensures passwords meet specific security requirements.
 
-The `@ValidPassword` annotation is a custom validation annotation that ensures passwords meet specific security requirements. When applied to a password field, it enforces the following rules:
+### How it Works
+1. **Annotation Declaration**: The `@ValidPassword` annotation is applied to the password field in the User model:
+   ```java
+   @NotBlank(message = "{user.password.required}")
+   @ValidPassword(message = "{user.password.pattern}")
+   @Column(name = "password", nullable = false)
+   private String password;
+   ```
 
-- Minimum length of 8 characters
-- At least one uppercase letter
-- At least one lowercase letter
-- At least one digit
-- At least one special character
-- No whitespace allowed
+2. **Validation Logic**: The validation logic is implemented in a validator class that implements `ConstraintValidator<ValidPassword, String>`.
 
-## How It Works
+3. **Password Requirements**: The validator checks if the password meets security criteria such as:
+   - Minimum length
+   - Presence of uppercase letters
+   - Presence of lowercase letters
+   - Presence of numbers
+   - Presence of special characters
 
-1. The `@ValidPassword` annotation is defined as a constraint annotation that can be applied to fields, methods, or parameters.
-2. The validation logic is implemented in the `PasswordValidator` class, which checks if the password meets all the required criteria.
-3. When validation fails, appropriate error messages are generated and displayed to the user.
+4. **Error Messages**: When validation fails, a customized error message is shown to the user, which can be internationalized using message properties files.
 
-## Usage Example
+## Validation Process
+1. When a user submits a form with a password field, Spring's validation framework automatically invokes the validator.
+2. The validator checks the password against the defined rules.
+3. If validation fails, error messages are added to the BindingResult object.
+4. The controller can then use the BindingResult to determine if there were validation errors and take appropriate action.
 
-```java
-public class User {
-    
-    @ValidPassword
-    private String password;
-    
-    // Other fields and methods
-}
-```
-
-When a User object is validated (e.g., during form submission), the password field will be checked against all the defined criteria.
-
-## Error Messages
-
-The validation provides specific error messages for each validation rule that fails, such as:
-- "Password must be at least 8 characters"
-- "Password must contain at least one uppercase letter"
-- "Password must contain at least one lowercase letter"
-- "Password must contain at least one digit"
-- "Password must contain at least one special character"
-- "Password cannot contain whitespace"
-
-These messages can be customized in the application's message properties files for internationalization support.
+## Benefits
+- **Security**: Ensures users create strong passwords that are harder to crack
+- **Customizable**: The validation rules can be adjusted to meet specific security requirements
+- **Reusable**: The annotation can be applied to any password field in different models
+- **Maintainable**: Centralized validation logic makes it easy to update security requirements

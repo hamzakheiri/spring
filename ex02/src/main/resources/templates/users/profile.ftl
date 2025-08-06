@@ -77,7 +77,7 @@
                             <i class="fas fa-user-shield me-2"></i>${springMacroRequestContext.getMessage("profile.accountStatus", [])}:
                         </div>
                         <div class="col-md-9">
-                            <#if user.confirmation>
+                            <#if user.confirmation == "CONFIRMED">
                                 <span class="badge bg-success"><i class="fas fa-check-circle me-1"></i>${springMacroRequestContext.getMessage("profile.verified", [])}</span>
                             <#else>
                                 <span class="badge bg-warning"><i class="fas fa-exclamation-circle me-1"></i>${springMacroRequestContext.getMessage("profile.pendingVerification", [])}</span>

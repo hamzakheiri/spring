@@ -1,6 +1,7 @@
 package fr._42.spring.services;
 
 import fr._42.spring.models.AccountConfirmation;
+import fr._42.spring.models.Confirmation;
 import fr._42.spring.models.User;
 import fr._42.spring.repositories.AccountConfirmationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,14 +51,14 @@ public class AccountConfirmationsService {
         if (!usersService.validatePassword(user.getPassword(), dbUser.getPassword())) {
             throw new IllegalArgumentException("Invalid password");
         }
-        if (dbUser.isConfirmation()) {
+        if (dbUser.getConfirmation() == Confirmation.CONFIRMED) {
             throw new IllegalArgumentException("User already confirmed");
         }
         AccountConfirmation accountConf = accountConfirmationRepository.findByUserId(dbUser.getId())
                 .orElseThrow(() -> new IllegalArgumentException("Confirmation not found"));
 
         if (accountConf.getConfirmationCode().equals(confirmationCode)) {
-            dbUser.setConfirmation(true);
+            dbUser.setConfirmation(Confirmation.CONFIRMED);
             usersService.updateUser(dbUser.getId(), dbUser.getFirstName(), dbUser.getLastName(), dbUser.getEmail(), dbUser.getPhoneNumber(), dbUser.getRole());
             accountConfirmationRepository.delete(accountConf);
             return;

@@ -1,5 +1,6 @@
 package fr._42.spring.security;
 
+import fr._42.spring.models.Confirmation;
 import fr._42.spring.models.User;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
@@ -50,10 +51,10 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return user.isConfirmation();
+        return user.getConfirmation() == Confirmation.CONFIRMED;
     }
 
     public boolean isConfirmed() {
-        return user.isConfirmation();
+        return user.getConfirmation() == Confirmation.CONFIRMED;
     }
 }
