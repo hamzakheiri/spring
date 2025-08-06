@@ -51,7 +51,6 @@
                             </div>
                         </div>
 
-                        <!-- Password -->
                         <div class="mb-3">
                             <label for="password" class="form-label">
                                 <i class="fas fa-lock me-1"></i>${springMacroRequestContext.getMessage("signin.password", [])} <span class="text-danger">*</span>
@@ -65,11 +64,6 @@
                                    placeholder="${springMacroRequestContext.getMessage("signin.password.placeholder", [])}">
                             <div class="invalid-feedback">
                                 ${springMacroRequestContext.getMessage("signup.password.error", [])}
-                            </div>
-                            <div class="d-flex justify-content-end mt-1">
-                                <a href="/forgot-password" class="text-decoration-none small">
-                                    <i class="fas fa-question-circle me-1"></i>${springMacroRequestContext.getMessage("signin.forgotPassword", [])}
-                                </a>
                             </div>
                         </div>
 
@@ -102,11 +96,9 @@
                             <div class="alert alert-warning text-center mb-3">
                                 <i class="fas fa-envelope me-2"></i>
                                 Your account has not been confirmed yet. Please check your email and click the confirmation link.
-                                <a href="/resend-confirmation" class="d-block mt-2">Resend confirmation email</a>
                             </div>
                         </#if>
 
-                        <!-- Handle Spring Security success parameter -->
                         <#if RequestParameters.success?? || success??>
                             <div class="alert alert-success text-center mb-3">
                                 <i class="fas fa-check-circle me-2"></i>

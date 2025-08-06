@@ -57,7 +57,7 @@ public class AccountConfirmationsService {
                 .orElseThrow(() -> new IllegalArgumentException("Confirmation not found"));
 
         if (accountConf.getConfirmationCode().equals(confirmationCode)) {
-            dbUser.setConfirmation(false);
+            dbUser.setConfirmation(true);
             usersService.updateUser(dbUser.getId(), dbUser.getFirstName(), dbUser.getLastName(), dbUser.getEmail(), dbUser.getPhoneNumber(), dbUser.getRole());
             accountConfirmationRepository.delete(accountConf);
             return;

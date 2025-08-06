@@ -50,6 +50,10 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return user.isConfirmation();
+    }
+
+    public boolean isConfirmed() {
+        return user.isConfirmation();
     }
 }
