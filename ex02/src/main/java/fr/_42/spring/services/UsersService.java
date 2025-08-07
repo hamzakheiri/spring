@@ -4,16 +4,24 @@ import fr._42.spring.models.User;
 import fr._42.spring.models.Role;
 import fr._42.spring.repositories.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+
+import java.io.File;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @Transactional
 public class UsersService {
+    @Value("${app.upload.path}")
+    private String uploadDirS;
 
     private final UsersRepository usersRepository;
     private final PasswordEncoder passwordEncoder;
@@ -36,6 +44,24 @@ public class UsersService {
             return user.get();
         }
         return null;
+    }
+
+
+    public String store(MultipartFile poster) {
+        try {
+            File uploadDir = new File(uploadDirS);
+            if (!uploadDir.exists())
+                uploadDir.mkdirs();
+            String originalFilename = poster.getOriginalFilename();
+            String extension = originalFilename.substring(originalFilename.lastIndexOf('.'));
+            String uniqueFileName = UUID.randomUUID() + extension;
+            File dest = new File(uploadDir, uniqueFileName);
+
+            poster.transferTo(dest);
+            return uniqueFileName;
+        } catch (IOException e) {
+            throw new IllegalArgumentException("Failed to store file", e);
+        }
     }
 
     public User createUser(String firstName, String lastName, String password, String email, String phoneNumber, Role role, String avatarUrl) {
@@ -73,12 +99,12 @@ public class UsersService {
         return usersRepository.findByEmail(email);
     }
 
-   @Transactional(readOnly = true)
+    @Transactional(readOnly = true)
     public Optional<User> getUserByPhoneNumber(String phoneNumber) {
         return usersRepository.findByPhoneNumber(phoneNumber);
     }
 
-   public User updateUser(Long id, String firstName, String lastName, String email, String phoneNumber, Role role) {
+    public User updateUser(Long id, String firstName, String lastName, String email, String phoneNumber, Role role) {
         User user = usersRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
@@ -101,7 +127,7 @@ public class UsersService {
         return usersRepository.save(user);
     }
 
-   public void updatePassword(Long id, String newPassword) {
+    public void updatePassword(Long id, String newPassword) {
         User user = usersRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
 

@@ -35,7 +35,6 @@ public class AdminController {
     private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
 
 
-    // todo: handle all the data validation
     @Autowired
     public AdminController(
             HallsService hallsService,
@@ -105,7 +104,6 @@ public class AdminController {
             @RequestParam("poster") MultipartFile poster,
             RedirectAttributes redirectAttributes
     ) {
-        // todo: you can also create and save a image instance to the db with user and so on
         try {
             String posterUrl = null;
             if (!poster.isEmpty()) {
@@ -152,7 +150,6 @@ public class AdminController {
         return "admin/sessions";
     }
 
-    // todo: handle the validation
     @PostMapping(value = {"/sessions", "/sessions/"})
     public String handleSessionsForm(
             @RequestParam("filmId") Long filmId,

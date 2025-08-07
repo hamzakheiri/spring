@@ -41,7 +41,6 @@ public class UsersController {
 
     @GetMapping("/signup")
     public String showSignUpForm(Model model, Authentication authentication) {
-        // If user is already authenticated, redirect to profile
         if (authentication != null && authentication.isAuthenticated() &&
                 !authentication.getName().equals("anonymousUser")) {
             return "redirect:/profile";
@@ -59,28 +58,28 @@ public class UsersController {
             BindingResult bindingResult,
             @RequestParam String confirmPassword,
             @RequestParam(required = false) MultipartFile avatarFile,
-            RedirectAttributes redirectAttributes,
-            Model model
+            RedirectAttributes redirectAttributes
     ) {
         if (bindingResult.hasErrors()) {
             bindingResult.getAllErrors().forEach(error -> {
                 logger.info("Validation error: " + error.toString());
             });
-
-            model.addAttribute("user", user);
-            model.addAttribute("bindingResult", bindingResult);
-            model.addAttribute("error", "Please correct the errors below");
+            redirectAttributes.addFlashAttribute("user", user);
+            redirectAttributes.addFlashAttribute("bindingResult", bindingResult);
+            redirectAttributes.addFlashAttribute("error", "Please correct the errors below");
             return "users/signup";
         }
 
         try {
             if (!user.getPassword().equals(confirmPassword)) {
-                model.addAttribute("user", user);
-                model.addAttribute("passwordMatchError", "Passwords do not match");
-                return "users/signup";
+                redirectAttributes.addFlashAttribute("user", user);
+                redirectAttributes.addFlashAttribute("passwordMatchError", "Passwords do not match");
+                return "redirect:/users/signup";
             }
             //ToDo: handle the avatar later
+            if (avatarFile.getSize() > 0) {
 
+            }
             User createdUser = usersService.createUser(
                     user.getFirstName(),
                     user.getLastName(),
@@ -95,8 +94,8 @@ public class UsersController {
             return "redirect:/signin";
 
         } catch (IllegalArgumentException e) {
-            model.addAttribute("error", e.getMessage());
-            return "users/signup";
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+            return "redirect:/users/signup";
         }
     }
 
@@ -120,6 +119,4 @@ public class UsersController {
         }
         return "mail sent successfully!";
     }
-
-
 }
