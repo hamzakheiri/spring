@@ -33,7 +33,7 @@
                     </h5>
                 </div>
                 <div class="card-body">
-                    <form method="post" action="/signup" id="signupForm" novalidate>
+                    <form method="post" action="/signup" id="signupForm" enctype="multipart/form-data" novalidate>
                         <!-- CSRF Token for security -->
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
@@ -282,15 +282,23 @@
 
                     // Validate file size (5MB max)
                     if (file.size > 5 * 1024 * 1024) {
-                        alert('File size must be less than 5MB');
-                        input.value = '';
+                        showError('File size must be less than 5MB');
+                        resetAvatarPreview(input, image, defaultIcon, preview);
                         return;
                     }
 
                     // Validate file type
                     if (!file.type.startsWith('image/')) {
-                        alert('Please select a valid image file');
-                        input.value = '';
+                        showError('Please select a valid image file');
+                        resetAvatarPreview(input, image, defaultIcon, preview);
+                        return;
+                    }
+
+                    // Additional validation for common image types
+                    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+                    if (!allowedTypes.includes(file.type)) {
+                        showError('Please select a JPEG, PNG, GIF, or WebP image file');
+                        resetAvatarPreview(input, image, defaultIcon, preview);
                         return;
                     }
 
@@ -301,13 +309,40 @@
                         defaultIcon.style.display = 'none';
                         preview.classList.add('has-image');
                     };
+                    reader.onerror = function() {
+                        showError('Error reading the selected file');
+                        resetAvatarPreview(input, image, defaultIcon, preview);
+                    };
                     reader.readAsDataURL(file);
                 } else {
                     // Reset to default state
-                    image.style.display = 'none';
-                    defaultIcon.style.display = 'block';
-                    preview.classList.remove('has-image');
+                    resetAvatarPreview(input, image, defaultIcon, preview);
                 }
+            }
+
+            function resetAvatarPreview(input, image, defaultIcon, preview) {
+                input.value = '';
+                image.style.display = 'none';
+                defaultIcon.style.display = 'block';
+                preview.classList.remove('has-image');
+            }
+
+            function showError(message) {
+                // Create or update error message
+                let errorDiv = document.getElementById('avatar-error');
+                if (!errorDiv) {
+                    errorDiv = document.createElement('div');
+                    errorDiv.id = 'avatar-error';
+                    errorDiv.className = 'alert alert-danger mt-2';
+                    document.querySelector('.avatar-upload-container').appendChild(errorDiv);
+                }
+                errorDiv.textContent = message;
+                errorDiv.style.display = 'block';
+
+                // Hide error after 5 seconds
+                setTimeout(() => {
+                    errorDiv.style.display = 'none';
+                }, 5000);
             }
 
             // Form validation

@@ -23,11 +23,35 @@ public class ImageController {
 
     private static final Logger logger = LoggerFactory.getLogger(ImageController.class);
 
-    @PreAuthorize("@customSecurity.isConfirmed(authentication)")
     @GetMapping("/{filename:.+}")
-    ResponseEntity<byte[]> serveImage(@PathVariable("filename") String filename) {
+    public ResponseEntity<byte[]> serveImage(@PathVariable("filename") String filename) {
         try {
-            Path file = Paths.get(imageDir).resolve(filename);
+            // Security: Validate filename to prevent directory traversal
+            if (filename.contains("..") || filename.contains("/") || filename.contains("\\")) {
+                logger.warn("Potential directory traversal attempt with filename: {}", filename);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+            }
+
+            // Validate filename is not empty
+            if (filename.trim().isEmpty()) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+            }
+
+            Path uploadDir = Paths.get(imageDir);
+            Path file = uploadDir.resolve(filename);
+
+            // Security: Ensure the resolved path is still within the upload directory
+            if (!file.startsWith(uploadDir)) {
+                logger.warn("Attempted access outside upload directory: {}", file);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+            }
+
+            // Check if file exists
+            if (!Files.exists(file)) {
+                logger.debug("Image file not found: {}", filename);
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            }
+
             byte[] image = Files.readAllBytes(file);
 
             String mimeType = Files.probeContentType(file);
@@ -35,11 +59,12 @@ public class ImageController {
 
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(mediaType);
+            headers.setCacheControl("public, max-age=31536000"); // Cache for 1 year
 
             return new ResponseEntity<>(image, headers, HttpStatus.OK);
         } catch (IOException e) {
-            logger.error("Error serving image: " + filename, e); // Log the exception
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            logger.error("Error serving image: " + filename, e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
 }

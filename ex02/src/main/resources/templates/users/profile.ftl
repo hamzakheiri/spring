@@ -21,8 +21,9 @@
             <div class="card bg-primary text-white">
                 <div class="card-body d-flex align-items-center p-4">
                     <div class="me-4">
+                        <!-- Debug: Avatar value = "${user.avatar!''}" -->
                         <#if user.avatar?? && user.avatar?has_content>
-                            <img src="${user.avatar}" alt="Profile Image" class="rounded-circle" width="100" height="100">
+                            <img src="${user.avatar}" alt="Profile Image" class="rounded-circle" width="100" height="100" style="object-fit: cover;">
                         <#else>
                             <div class="rounded-circle bg-light text-primary d-flex align-items-center justify-content-center" style="width: 100px; height: 100px; font-size: 2.5rem;">
                                 ${user.firstName?substring(0,1)}${user.lastName?substring(0,1)}

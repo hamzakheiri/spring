@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.File;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -107,16 +108,45 @@ public class AdminController {
         try {
             String posterUrl = null;
             if (!poster.isEmpty()) {
-                File uploadDir = new File(uploadDirS);
-                if (!uploadDir.exists())
-                    uploadDir.mkdirs();
-                String originalFilename = poster.getOriginalFilename();
-                String extension = originalFilename.substring(originalFilename.lastIndexOf('.'));
-                String uniqueFileName = UUID.randomUUID() + extension;
-                File dest = new File(uploadDir, uniqueFileName);
+                try {
+                    // Validate file size (5MB max)
+                    if (poster.getSize() > 5 * 1024 * 1024) {
+                        throw new IllegalArgumentException("File size must be less than 5MB");
+                    }
 
-                poster.transferTo(dest);
-                posterUrl = uniqueFileName;
+                    // Validate content type
+                    String contentType = poster.getContentType();
+                    if (contentType == null || !contentType.startsWith("image/")) {
+                        throw new IllegalArgumentException("File must be an image");
+                    }
+
+                    File uploadDir = new File(uploadDirS);
+                    if (!uploadDir.exists()) {
+                        uploadDir.mkdirs();
+                    }
+
+                    String originalFilename = poster.getOriginalFilename();
+                    if (originalFilename == null || originalFilename.trim().isEmpty()) {
+                        throw new IllegalArgumentException("Original filename cannot be null or empty");
+                    }
+
+                    // Extract file extension with better error handling
+                    String extension = "";
+                    int lastDotIndex = originalFilename.lastIndexOf('.');
+                    if (lastDotIndex > 0 && lastDotIndex < originalFilename.length() - 1) {
+                        extension = originalFilename.substring(lastDotIndex);
+                    } else {
+                        extension = ".jpg"; // Default extension
+                    }
+
+                    String uniqueFileName = UUID.randomUUID() + extension;
+                    File dest = new File(uploadDir, uniqueFileName);
+
+                    poster.transferTo(dest);
+                    posterUrl = uniqueFileName;
+                } catch (IOException e) {
+                    throw new IllegalArgumentException("Failed to store poster file: " + e.getMessage(), e);
+                }
             }
             Film film = new Film(null, title, year, ageRestrictions, description, posterUrl);
             filmsService.addFilm(film);

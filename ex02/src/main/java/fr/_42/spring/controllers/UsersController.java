@@ -60,6 +60,15 @@ public class UsersController {
             @RequestParam(required = false) MultipartFile avatarFile,
             RedirectAttributes redirectAttributes
     ) {
+        // Debug logging for multipart file
+        logger.info("Received signup request for user: {}", user.getEmail());
+        if (avatarFile != null) {
+            logger.info("Avatar file received - Name: {}, Size: {}, ContentType: {}",
+                       avatarFile.getOriginalFilename(), avatarFile.getSize(), avatarFile.getContentType());
+        } else {
+            logger.info("No avatar file received");
+        }
+
         if (bindingResult.hasErrors()) {
             bindingResult.getAllErrors().forEach(error -> {
                 logger.info("Validation error: " + error.toString());
@@ -76,10 +85,21 @@ public class UsersController {
                 redirectAttributes.addFlashAttribute("passwordMatchError", "Passwords do not match");
                 return "redirect:/users/signup";
             }
-            //ToDo: handle the avatar later
-            if (avatarFile.getSize() > 0) {
 
+            // Handle avatar upload
+            String avatarUrl = null;
+            if (avatarFile != null && !avatarFile.isEmpty()) {
+                try {
+                    String storedFilename = usersService.store(avatarFile);
+                    avatarUrl = "/images/" + storedFilename;
+                } catch (IllegalArgumentException e) {
+                    logger.error("Failed to store avatar file: {}", e.getMessage());
+                    redirectAttributes.addFlashAttribute("user", user);
+                    redirectAttributes.addFlashAttribute("error", "Failed to upload avatar: " + e.getMessage());
+                    return "redirect:/signup";
+                }
             }
+
             User createdUser = usersService.createUser(
                     user.getFirstName(),
                     user.getLastName(),
@@ -87,7 +107,7 @@ public class UsersController {
                     user.getEmail(),
                     user.getPhoneNumber(),
                     Role.USER,
-                    null
+                    avatarUrl
             );
             AccountConfirmation accountConfirmation = accountConfirmationsService.createConfirmation(createdUser.getId(), createdUser.getEmail());
             redirectAttributes.addFlashAttribute("success", "Please confirm the account through the email sent to " + user.getEmail());
@@ -118,5 +138,18 @@ public class UsersController {
             return "Error sending email: " + e.getMessage();
         }
         return "mail sent successfully!";
+    }
+
+    @PostMapping("/test-upload")
+    @ResponseBody
+    public String testFileUpload(@RequestParam(required = false) MultipartFile avatarFile) {
+        if (avatarFile == null) {
+            return "No file received";
+        }
+
+        return String.format("File received successfully! Name: %s, Size: %d bytes, ContentType: %s",
+                           avatarFile.getOriginalFilename(),
+                           avatarFile.getSize(),
+                           avatarFile.getContentType());
     }
 }

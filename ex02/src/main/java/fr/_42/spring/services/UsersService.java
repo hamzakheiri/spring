@@ -47,20 +47,50 @@ public class UsersService {
     }
 
 
-    public String store(MultipartFile poster) {
+    public String store(MultipartFile file) {
+        if (file == null || file.isEmpty()) {
+            throw new IllegalArgumentException("File cannot be null or empty");
+        }
+
         try {
+            // Validate file size (5MB max)
+            if (file.getSize() > 5 * 1024 * 1024) {
+                throw new IllegalArgumentException("File size must be less than 5MB");
+            }
+
+            // Validate content type
+            String contentType = file.getContentType();
+            if (contentType == null || !contentType.startsWith("image/")) {
+                throw new IllegalArgumentException("File must be an image");
+            }
+
             File uploadDir = new File(uploadDirS);
-            if (!uploadDir.exists())
+            if (!uploadDir.exists()) {
                 uploadDir.mkdirs();
-            String originalFilename = poster.getOriginalFilename();
-            String extension = originalFilename.substring(originalFilename.lastIndexOf('.'));
+            }
+
+            String originalFilename = file.getOriginalFilename();
+            if (originalFilename == null || originalFilename.trim().isEmpty()) {
+                throw new IllegalArgumentException("Original filename cannot be null or empty");
+            }
+
+            // Extract file extension with better error handling
+            String extension = "";
+            int lastDotIndex = originalFilename.lastIndexOf('.');
+            if (lastDotIndex > 0 && lastDotIndex < originalFilename.length() - 1) {
+                extension = originalFilename.substring(lastDotIndex);
+            } else {
+                // Default to .jpg if no extension found
+                extension = ".jpg";
+            }
+
             String uniqueFileName = UUID.randomUUID() + extension;
             File dest = new File(uploadDir, uniqueFileName);
 
-            poster.transferTo(dest);
+            file.transferTo(dest);
             return uniqueFileName;
         } catch (IOException e) {
-            throw new IllegalArgumentException("Failed to store file", e);
+            throw new IllegalArgumentException("Failed to store file: " + e.getMessage(), e);
         }
     }
 
@@ -179,5 +209,37 @@ public class UsersService {
     @Transactional(readOnly = true)
     public long getUserCountByRole(Role role) {
         return usersRepository.countByRole(role);
+    }
+   public User updateUserAvatar(Long userId, MultipartFile avatarFile) {
+        User user = usersRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        String avatarUrl = null;
+        if (avatarFile != null && !avatarFile.isEmpty()) {
+            // Delete old avatar file if exists
+            if (user.getAvatar() != null && !user.getAvatar().isEmpty()) {
+                deleteAvatarFile(user.getAvatar());
+            }
+
+            String storedFilename = store(avatarFile);
+            avatarUrl = "/images/" + storedFilename;
+        }
+
+        user.setAvatar(avatarUrl);
+        return usersRepository.save(user);
+    }
+
+    private void deleteAvatarFile(String avatarUrl) {
+        try {
+            if (avatarUrl != null && avatarUrl.startsWith("/images/")) {
+                String filename = avatarUrl.substring("/images/".length());
+                File file = new File(uploadDirS, filename);
+                if (file.exists()) {
+                    file.delete();
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Failed to delete avatar file: " + e.getMessage());
+        }
     }
 }
