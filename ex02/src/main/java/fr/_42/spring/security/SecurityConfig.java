@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -16,6 +17,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 public class SecurityConfig {
 
     @Autowired
@@ -52,8 +54,8 @@ public class SecurityConfig {
                         .maxSessionsPreventsLogin(false)
                 )
                 .formLogin(form -> form
-                        .loginPage("/signin")           // Your custom login page
-                        .loginProcessingUrl("/login")   // Where Spring Security processes login
+                        .loginPage("/signin")
+                        .loginProcessingUrl("/login")
                         .usernameParameter("email")     // Your form uses 'email' not 'username'
                         .passwordParameter("password")  // Your form uses 'password' (default)
                         .defaultSuccessUrl("/profile", true)

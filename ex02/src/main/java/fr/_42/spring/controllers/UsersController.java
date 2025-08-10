@@ -83,7 +83,7 @@ public class UsersController {
             if (!user.getPassword().equals(confirmPassword)) {
                 redirectAttributes.addFlashAttribute("user", user);
                 redirectAttributes.addFlashAttribute("passwordMatchError", "Passwords do not match");
-                return "redirect:/users/signup";
+                return "redirect:/signup";
             }
 
             // Handle avatar upload
@@ -115,7 +115,7 @@ public class UsersController {
 
         } catch (IllegalArgumentException e) {
             redirectAttributes.addFlashAttribute("error", e.getMessage());
-            return "redirect:/users/signup";
+            return "redirect:/signup";
         }
     }
 
@@ -140,16 +140,4 @@ public class UsersController {
         return "mail sent successfully!";
     }
 
-    @PostMapping("/test-upload")
-    @ResponseBody
-    public String testFileUpload(@RequestParam(required = false) MultipartFile avatarFile) {
-        if (avatarFile == null) {
-            return "No file received";
-        }
-
-        return String.format("File received successfully! Name: %s, Size: %d bytes, ContentType: %s",
-                           avatarFile.getOriginalFilename(),
-                           avatarFile.getSize(),
-                           avatarFile.getContentType());
-    }
 }

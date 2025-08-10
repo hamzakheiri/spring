@@ -14,6 +14,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -26,6 +27,7 @@ import java.util.UUID;
 
 @Controller()
 @RequestMapping("/admin/panel")
+@PreAuthorize("hasRole('ADMIN')")
 public class AdminController {
     @Value("${app.upload.path}")
     private String uploadDirS;
