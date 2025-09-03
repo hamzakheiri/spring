@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="cfcc5416-cf9b-458d-a7b8-4469e3538ccd" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../target/classes/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/classes/fr/_42/spring/Application.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/classes/fr/_42/spring/config/WebSocketConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/classes/fr/_42/spring/controllers/AdminController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/classes/fr/_42/spring/controllers/FilmChatController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/classes/fr/_42/spring/controllers/HelloController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/classes/fr/_42/spring/controllers/ImageController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/classes/fr/_42/spring/controllers/LiveSessionController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/classes/fr/_42/spring/controllers/ProfileController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/classes/fr/_42/spring/controllers/UsersController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/classes/fr/_42/spring/models/ChatMessage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/classes/fr/_42/spring/models/Film.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/classes/fr/_42/spring/models/Hall.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/classes/fr/_42/spring/models/Image.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/classes/fr/_42/spring/models/Role.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/classes/fr/_42/spring/models/Session.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/classes/fr/_42/spring/models/User.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/classes/fr/_42/spring/models/UserSession.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/classes/fr/_42/spring/repositories/ChatMessagesRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/classes/fr/_42/spring/repositories/FilmsRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/classes/fr/_42/spring/repositories/HallsRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/classes/fr/_42/spring/repositories/ImagesRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/classes/fr/_42/spring/repositories/SessionsRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/classes/fr/_42/spring/repositories/UsersRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/classes/fr/_42/spring/repositories/UsersSessionRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/classes/fr/_42/spring/security/CustomAuthenticationEntryPoint.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/classes/fr/_42/spring/security/CustomUserDetails.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/classes/fr/_42/spring/security/CustomUserDetailsService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/classes/fr/_42/spring/security/SecurityConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/classes/fr/_42/spring/services/ChatMessagesService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/classes/fr/_42/spring/services/FilmsService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/classes/fr/_42/spring/services/HallsService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/classes/fr/_42/spring/services/ImagesService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/classes/fr/_42/spring/services/SessionsService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/classes/fr/_42/spring/services/UsersService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/classes/sql/add_sender_username_column.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/classes/sql/data.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/classes/templates/admin/films.ftl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/classes/templates/admin/halls.ftl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/classes/templates/admin/sessions.ftl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/classes/templates/layout/base.ftl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/classes/templates/users/filmChat.ftl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/classes/templates/users/liveSessionSearch.ftl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/classes/templates/users/profile.ftl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/classes/templates/users/sessionDetails.ftl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/classes/templates/users/signin.ftl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/classes/templates/users/signup.ftl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/test-classes/fr/_42/spring/ApplicationTests.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/test-classes/fr/_42/spring/controllers/HelloControllerTest.class" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="31eAPLpaWarA8Ue2WVwmxNsiAUC" />
+  <component name="ProjectViewState">
+    <option name="flattenModules" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "//wsl.localhost/Ubuntu/home/hkheiri/intellijSpring",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="NovelScrapperApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="novelScrapper" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="fr._42.novelscrapper.NovelScrapperApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.23892.409" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="cfcc5416-cf9b-458d-a7b8-4469e3538ccd" name="Changes" comment="" />
+      <created>1755874143820</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1755874143820</updated>
+      <workItem from="1755874145046" duration="422000" />
+      <workItem from="1755875353806" duration="30000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
